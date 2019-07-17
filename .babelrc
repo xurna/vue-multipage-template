@@ -1,0 +1,13 @@
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage", // 用到相关的polyfill将自动导入
+        "corejs":"3.0.0" // 使用useBuiltIns需要指定corejs版本，不然会有warnings
+      }
+    ],
+  ],
+  "plugins": [
+  ]
+}
