@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="main">
     <h2>User</h2>
   </div>
 </template>
@@ -23,7 +23,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 @import "~less/variables";
-.hello{
+.main{
+  text-align: center;
   margin-top: 20px;
 }
 h1,

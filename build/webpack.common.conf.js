@@ -1,13 +1,15 @@
+const utils = require('./utils')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const path = require('path')
 const process = require('process')
 const nodeModuleDir = path.resolve(process.cwd(), 'node_module')
 const appDir = path.resolve(process.cwd(), 'app')
+
 function resolve(dir) {
   return path.join(appDir, dir)
 }
 module.exports = {
-  entry: { 'app': resolve('main.js') },
+  entry: utils.entries(),
   resolve: {
     extensions: ['.js', '.vue', '.less', '.json'],
     alias: {

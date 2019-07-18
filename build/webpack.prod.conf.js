@@ -1,4 +1,5 @@
 const commonConfig = require('./webpack.common.conf')
+const utils = require('./utils')
 const webpack = require('webpack')
 const webpackMerge = require('webpack-merge')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -9,10 +10,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin')
 const path = require('path')
 const process = require('process')
+const glob = require('glob')
 const nodeModuleDir = path.resolve(process.cwd(), 'node_module')
 const appDir = path.resolve(process.cwd(), 'app')
 const outputPath = path.resolve(process.cwd(), 'dist')
 const assestPathName = 'static'
+const PAGE_PATH = path.join(appDir, 'pages')
+
 const config = webpackMerge(commonConfig, {
   mode: 'production',
   output: {
@@ -46,7 +50,7 @@ const config = webpackMerge(commonConfig, {
         // 处理入口chunk
         vendors: {
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'initial', 
+          chunks: 'initial',
           name: 'vendors',
           reuseExistingChunk: true,
           priority: 3
@@ -54,10 +58,10 @@ const config = webpackMerge(commonConfig, {
         // 处理异步按需加载chunk
         'async-vendors': {
           test: /[\\/]node_modules[\\/]/,
-          minChunks: 2, 
-          chunks: 'async', 
+          minChunks: 2,
+          chunks: 'async',
           name: 'async-vendors',
-          reuseExistingChunk: true, 
+          reuseExistingChunk: true,
           priority: 2
         },
       }
@@ -68,23 +72,8 @@ const config = webpackMerge(commonConfig, {
     // 从js中提取css，目前缺失HMR，所以只能在生成环境中使用
     new MiniCssExtractPlugin({
       filename: assestPathName + `/css/[name].[contenthash:8].css`,
-      chunkFilename: assestPathName + `/css/[id].[chunkhash:8].css`, 
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'index.html', 
-      template: path.join(appDir, 'index.html'),
-      title: '',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true,
-        conservativeCollapse: true
-      },
-      chunks: ['manifest', 'vendors', 'app']
     }),
     new webpack.HashedModuleIdsPlugin(),
-    new InlineManifestWebpackPlugin('manifest') 
   ],
   module: {
     rules: [
@@ -131,9 +120,31 @@ const config = webpackMerge(commonConfig, {
   stats: {
     colors: true,
     modules: false,
-    children: false, 
+    children: false,
     chunks: false,
     chunkModules: false,
   }
 })
+
+let entryHtml = glob.sync(PAGE_PATH + '/*/*.html')
+entryHtml.forEach((filePath) => {
+  let filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
+  let conf = {
+    filename: filename + '.html', 
+    template: filePath,
+    minify: {
+      removeComments: true,
+      collapseWhitespace: true,
+      removeAttributeQuotes: true,
+      conservativeCollapse: true
+    },
+    inject: true,
+    chunksSortMode: 'dependency',
+    chunks: ['manifest', 'vendors', filename],
+  }
+  config.plugins.push(new HtmlWebpackPlugin(conf))
+})
+// 需放在HtmlWebpackPlugin下面
+config.plugins.push(new InlineManifestWebpackPlugin('manifest'))
+
 module.exports = config

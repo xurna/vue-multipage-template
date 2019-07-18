@@ -1,21 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import App from './App'
-import routes from './routes'
+import Main from './main'
 import "less/public.less";
 
 Vue.config.productionTip = false
 
 Vue.use(Router)
 
+const routes = [
+  { path: '/home', name: 'Main', component: Main, },
+];
+
 const router = new Router({
+  mode: 'history',
   routes
 })
 
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+  router
+}).$mount('#app')

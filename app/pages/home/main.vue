@@ -1,8 +1,8 @@
 <template>
-  <div class="hello">
-    <router-link to="/user">
+  <div class="main">
+    <a href="/user">
       <img src="~img/logo.png">
-    </router-link>
+    </a>
     <HelloWord :msg="msg"></HelloWord>
     <h2>Essential Links</h2>
     <ul>
@@ -30,7 +30,7 @@
 import axios from 'axios'
 import HelloWord from 'cmp/Hello'
 export default {
-  name: 'HelloWorld',
+  name: 'Main',
   data() {
     return {
       msg: 'Welcome to Your Vue.js App'
@@ -52,7 +52,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 @import "~less/variables";
-.hello {
+.main {
+  text-align: center;
   margin-top: 20px;
 }
 h1,

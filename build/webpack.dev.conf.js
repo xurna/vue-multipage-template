@@ -1,13 +1,16 @@
 const commonConfig = require('./webpack.common.conf')
+const utils = require('./utils')
 const webpackMerge = require('webpack-merge')
 const path = require('path')
 const process = require('process')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const glob = require('glob')
 const nodeModuleDir = path.resolve(process.cwd(), 'node_module')
 const appDir = path.resolve(process.cwd(), 'app')
 const ip = require('ip')
-const port = 9000
+const port = 9001
 const host = ip.address()
+const PAGE_PATH = path.join(appDir, 'pages')
 
 const config = webpackMerge(commonConfig, {
   mode: 'development',
@@ -20,7 +23,9 @@ const config = webpackMerge(commonConfig, {
     host,
     open: true, // open browser
     hot: true, // webpack.HotModuleReplacementPlugin,不需要重新在plugins里面再定义
-    historyApiFallback: true, // 404页面被定向到默认页面
+    historyApiFallback: {
+      rewrites: utils.rewrites() // 重要！路由匹配html页面，不配置则通过路由找不到页面
+    }, 
     overlay: { // show errors on the page
       warnings: false,
       errors: true
@@ -41,13 +46,6 @@ const config = webpackMerge(commonConfig, {
     },
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      title: '',
-      template: path.join(appDir, 'index.html'),
-      inject: true,
-      chunks: ['app']
-    })
   ],
   module: {
     rules: [
@@ -88,4 +86,18 @@ const config = webpackMerge(commonConfig, {
     ]
   }
 })
+
+let entryHtml = glob.sync(PAGE_PATH + '/*/*.html')
+entryHtml.forEach((filePath) => {
+  let filename = filePath.substring(filePath.lastIndexOf('\/') + 1, filePath.lastIndexOf('.'))
+  let conf = {
+    filename: filename + '.html',
+    template: filePath,
+    inject: true,
+    chunks: [filename], // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+  }
+  config.plugins.push(new HtmlWebpackPlugin(conf))
+})
+
+
 module.exports = config
