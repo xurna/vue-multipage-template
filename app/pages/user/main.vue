@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'User',
   data() {
@@ -13,9 +14,9 @@ export default {
   },
   components: {
   },
-  created(){
+  created() {
   },
-  methods:{
+  methods: {
   }
 }
 </script>
@@ -23,7 +24,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="less" scoped>
 @import "~less/variables";
-.main{
+.main {
   text-align: center;
   margin-top: 20px;
 }

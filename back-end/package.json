@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "NODE_ENV=development PORT=3000 nodemon ./bin/www",
+    "prod": "NODE_ENV=production PORT=3001 nodemon ./bin/www"
+  },
+  "dependencies": {
+    "debug": "^2.6.9",
+    "koa": "^2.2.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-convert": "^1.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^2.0.1",
+    "koa-router": "^7.1.1",
+    "koa-static": "^3.0.0",
+    "koa-views": "^5.2.1",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "nodemon": "^1.8.1"
+  }
+}
