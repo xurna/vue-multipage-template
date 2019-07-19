@@ -1,6 +1,11 @@
 # vue-multipage-template
 vue多页项目模板
 
+## 运行
+- 安装依赖：`npm install`
+- 开发：`npm run dev`，打开页面：`http://x.x.x.x:9001/home`
+- 上线打包：`npm run build`
+
 ## vue单页改成多页步骤
 - 此步骤是基于上一篇[vue单页项目模板](https://github.com/xurna/vue-template)搭建的，有不清楚的webpack配置可以去该仓库查询
 - 修改目录结构：将app目录下的pages下的页面结构修改成如下，`文件夹名`-`js文件名`-`html文件名`需要一致，且定义的页面`路由`开头也需要与文件名一致，页面内容不详讲。
