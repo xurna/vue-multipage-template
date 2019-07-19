@@ -4,7 +4,7 @@
       <img src="~img/logo.png">
     </a>
     <HelloWord :msg="msg"></HelloWord>
-    <h2>Essential Links</h2>
+    <router-link to="/home/detail"><h2>Essential Links</h2></router-link>
     <ul>
       <li>
         <a href="https://vuejs.org" target="_blank">Core Docs</a>

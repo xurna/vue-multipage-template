@@ -3,7 +3,7 @@ vue多页项目模板
 
 ## vue单页改成多页步骤
 - 此步骤是基于上一篇[vue单页项目模板](https://github.com/xurna/vue-template)搭建的，有不清楚的可以去仓库查询
-- 修改目录结构：将pages下的页面结构修改成如下，`文件夹名`-`js文件名`-`html文件名`需要一致，且`路由`也需要与文件名一致，页面内容不详讲。
+- 修改目录结构：将pages下的页面结构修改成如下，`文件夹名`-`js文件名`-`html文件名`需要一致，且定义的页面`路由`开头也需要与文件名一致，页面内容不详讲。
   ```
   .
   ├── assets
@@ -23,6 +23,7 @@ vue多页项目模板
     ```js
     // 新建文件 utils.js
     const path = require('path')
+    // `glob`: 匹配文件, 该模块允许你使用 * 等符号, 例如lib/*.js就是获取lib文件夹下的所有js后缀名的文件
     const glob = require('glob')
     const PAGE_PATH = path.resolve(__dirname, '../app/pages')
 
@@ -145,7 +146,4 @@ vue多页项目模板
     ```
     配置完后就可以正常按照路由打开页面了。
 
-
-## 笔记
-- `glob`: 匹配文件, 该模块允许你使用 * 等符号, 例如lib/*.js就是获取lib文件夹下的所有js后缀名的文件
-- 
+  - 由于`vue-router`我使用了`history模式`的路由，打包后的页面需要在服务器端配置路由，通过后端render才可打开页面，我写了一个`back-end`的简单服务器端，到目录下执行`npm run dev`，，打开`http://localhost:3000/home`即可看到对应打包页面内容。因为，上线前，需要后端配置前端的页面路由指定的html页面。
