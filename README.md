@@ -2,21 +2,38 @@
 vue多页项目模板
 
 ## vue单页改成多页步骤
-- 此步骤是基于上一篇[vue单页项目模板](https://github.com/xurna/vue-template)搭建的，有不清楚的可以去仓库查询
-- 修改目录结构：将pages下的页面结构修改成如下，`文件夹名`-`js文件名`-`html文件名`需要一致，且定义的页面`路由`开头也需要与文件名一致，页面内容不详讲。
+- 此步骤是基于上一篇[vue单页项目模板](https://github.com/xurna/vue-template)搭建的，有不清楚的webpack配置可以去该仓库查询
+- 修改目录结构：将app目录下的pages下的页面结构修改成如下，`文件夹名`-`js文件名`-`html文件名`需要一致，且定义的页面`路由`开头也需要与文件名一致，页面内容不详讲。
   ```
   .
-  ├── assets
-  ├── components
-  └── pages
-      ├── home
-      │   ├── home.html
-      │   ├── home.js
-      │   └── main.vue
-      └── user
-          ├── main.vue
-          ├── user.html
-          └── user.js
+  ├── README.md
+  ├── app // 前端目录
+  │   ├── assets
+  │   │   ├── images
+  │   │   ├── js
+  │   │   └── less
+  │   ├── components
+  │   └── pages
+  │       ├── home
+  │       │   ├── detail.vue
+  │       │   ├── home.html
+  │       │   ├── home.js
+  │       │   └── main.vue
+  │       └── user
+  │           ├── main.vue
+  │           ├── user.html
+  │           └── user.js
+  ├── back-end  // 后端服务
+  ├── build  // webpack配置
+  │   ├── build.js
+  │   ├── utils.js
+  │   ├── webpack.common.conf.js
+  │   ├── webpack.dev.conf.js
+  │   └── webpack.prod.conf.js
+  ├── dist // 打包文件
+  ├── package.json
+  ├── test
+  ├── webpack.config.js
   ```
 - 修改webpack配置
   - 修改入口配置
