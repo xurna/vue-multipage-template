@@ -3,11 +3,20 @@
     [
       "@babel/preset-env",
       {
-        "useBuiltIns": "usage", // 用到相关的polyfill将自动导入
-        "corejs":"3.0.0" // 使用useBuiltIns需要指定corejs版本，不然会有warnings
+        "useBuiltIns": "usage",     // 用到相关的polyfill将自动导入
+        "corejs":"3.0.0"           // 使用useBuiltIns需要指定corejs版本，不然会有warnings
       }
     ],
   ],
   "plugins": [
+    // [
+    //   "@babel/plugin-transform-runtime",
+    //   {
+    //     "corejs": 3 // 指定 runtime-corejs 的版本，目前有 2 3 两个版本
+    //   }
+    // ]
   ]
 }
+
+
+
